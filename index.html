@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>残骸 - 游戏下载</title>
+    <link rel="icon" href="残骸.ico" type="image/x-icon">
+    <style>
+
+        @font-face {
+            font-family: 'ZhongWen';
+            src: url('zh-cn.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-border: rgba(255, 255, 255, 0.9);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --overlay-opacity: 0.85;
+        }
+        
+        .dark-theme {
+            --bg-color: #121212;
+            --text-color: #ffffff;
+            --card-bg: rgba(30, 30, 30, 0.95);
+            --card-border: rgba(60, 60, 60, 0.9);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --overlay-opacity: 0.7;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'ZhongWen', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(45deg, #ff9a00, #ff2e63, #00b4db, #00c853);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            transition: color 0.5s ease;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            opacity: var(--overlay-opacity);
+            z-index: -1;
+            transition: background 0.5s ease, opacity 0.5s ease;
+        }
+        
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            min-height: calc(100vh - 4rem);
+        }
+        
+        .content {
+            flex: 1;
+        }
+        
+        .theme-language-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            border: 1px solid var(--card-border);
+            transition: background 0.5s ease, box-shadow 0.5s ease, border 0.5s ease;
+        }
+        
+        .theme-switcher, .language-switcher {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .theme-switcher h3, .language-switcher h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            animation: textColorShift 8s ease infinite;
+        }
+        
+        .theme-btn, .lang-btn {
+            background: rgba(255,255,255,0.9);
+            border: 1px solid rgba(0,0,0,0.1);
+            color: #000;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            animation: textColorShift 8s ease infinite;
+            width: 120px;
+        }
+        
+        .dark-theme .theme-btn, .dark-theme .lang-btn {
+            background: rgba(30, 30, 30, 0.9);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        
+        .theme-btn:hover, .lang-btn:hover, .theme-btn.active, .lang-btn.active {
+            background: rgba(255,255,255,1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .dark-theme .theme-btn:hover, .dark-theme .lang-btn:hover, 
+        .dark-theme .theme-btn.active, .dark-theme .lang-btn.active {
+            background: rgba(60, 60, 60, 1);
+        }
+        
+        header {
+            margin-bottom: 3rem;
+        }
+        
+        .game-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            animation: textColorShift 8s ease infinite;
+            text-shadow: 0 2px 5px var(--shadow-color);
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes textColorShift {
+            0% {
+                color: #ff2e63;
+            }
+            25% {
+                color: #00b4db;
+            }
+            50% {
+                color: #00c853;
+            }
+            75% {
+                color: #ff9a00;
+            }
+            100% {
+                color: #ff2e63;
+            }
+        }
+        
+        .game-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: textColorShift 8s ease infinite;
+        }
+        
+        .game-description {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            border: 1px solid var(--card-border);
+            animation: textColorShift 8s ease infinite;
+            transition: background 0.5s ease, box-shadow 0.5s ease, border 0.5s ease;
+        }
+        
+        .download-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            grid-column: 1 / -1;
+            animation: textColorShift 8s ease infinite;
+        }
+        
+        .download-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.5s ease;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            border: 1px solid var(--card-border);
+            animation: textColorShift 8s ease infinite;
+        }
+        
+        .download-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px var(--shadow-color);
+            background: var(--card-bg);
+        }
+        
+        .device-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            animation: textColorShift 8s ease infinite;
+        }
+        
+        .download-card h3, .download-card p {
+            animation: textColorShift 8s ease infinite;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #ff9a00, #ff2e63);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 46, 99, 0.3);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 46, 99, 0.4);
+        }
+        
+        .fast-download {
+            background: linear-gradient(45deg, #00b4db, #0083b0);
+            box-shadow: 0 4px 15px rgba(0, 180, 219, 0.3);
+        }
+        
+        .fast-download:hover {
+            box-shadow: 0 6px 20px rgba(0, 180, 219, 0.4);
+        }
+        
+        .web-play-btn {
+            background: linear-gradient(45deg, #00c853, #64dd17);
+            box-shadow: 0 4px 15px rgba(100, 221, 23, 0.3);
+            font-size: 1.2rem;
+            padding: 1rem 2rem;
+            margin-top: 1rem;
+        }
+        
+        .web-play-btn:hover {
+            box-shadow: 0 6px 20px rgba(100, 221, 23, 0.4);
+        }
+        
+        footer {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            text-align: center;
+            animation: textColorShift 8s ease infinite;
+        }
+        
+        @media (max-width: 768px) {
+            .game-title {
+                font-size: 2.5rem;
+            }
+            
+            .download-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .theme-language-switcher {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="light-theme">
+    <div class="container">
+        <div class="content">
+            <header>
+                <h1 class="game-title" data-zh="残骸" data-en="Wreckage">残骸</h1>
+                <p class="game-subtitle" data-zh="废墟中的生存与探索" data-en="Survival and Exploration in the Ruins">废墟中的生存与探索</p>
+            </header>
+            
+            <div class="game-description">
+                <p data-zh="《残骸》是一款末日生存题材的冒险游戏。在文明崩溃的世界中，玩家需要在废墟中寻找资源，对抗恶劣环境，并揭开灾难背后的真相。探索广阔的地图，建立庇护所，与幸存者互动，体验一个充满挑战与希望的世界。" 
+                   data-en="Wreckage is an adventure game set in a post-apocalyptic survival scenario. In a world where civilization has collapsed, players must scavenge for resources in the ruins, battle harsh environments, and uncover the truth behind the disaster. Explore vast maps, build shelters, interact with survivors, and experience a world full of challenges and hope.">
+                    《残骸》是一款末日生存题材的冒险游戏。在文明崩溃的世界中，玩家需要在废墟中寻找资源，对抗恶劣环境，并揭开灾难背后的真相。探索广阔的地图，建立庇护所，与幸存者互动，体验一个充满挑战与希望的世界。
+                </p>
+            </div>
+            
+            <div class="download-section">
+                <h2 class="section-title" data-zh="下载游戏" data-en="Download Game">下载游戏</h2>
+                
+                <div class="download-card">
+                    <div class="device-icon">💻</div>
+                    <h3 data-zh="电脑版" data-en="PC Version">电脑版</h3>
+                    <p data-zh="完整游戏体验，支持Windows系统" data-en="Full game experience, supports Windows">完整游戏体验，支持Windows系统</p>
+                    <a href="残骸下载.zip" class="download-btn" download data-zh="电脑正常下载" data-en="PC Normal Download">电脑正常下载</a>
+                </div>
+                
+                <div class="download-card">
+                    <div class="device-icon">🚀</div>
+                    <h3 data-zh="电脑快速下载" data-en="PC Fast Download">电脑快速下载</h3>
+                    <p data-zh="通过网盘快速获取游戏（推荐）" data-en="Get the game quickly via cloud storage (Recommended)">通过网盘快速获取游戏（推荐）</p>
+                    <a href="https://www.123865.com/s/h7RnTd-42Wd3" class="download-btn fast-download" data-zh="电脑快速下载" data-en="PC Fast Download" target="_blank">电脑快速下载</a>
+                </div>
+                
+                <div class="download-card">
+                    <div class="device-icon">📱</div>
+                    <h3 data-zh="手机版" data-en="Mobile Version">手机版</h3>
+                    <p data-zh="移动设备专属版本，随时随地畅玩" data-en="Mobile-exclusive version, play anytime, anywhere">移动设备专属版本，随时随地畅玩</p>
+                    <a href="残骸.apk" class="download-btn" download data-zh="手机正常下载" data-en="Mobile Normal Download">手机正常下载</a>
+                </div>
+                
+                <div class="download-card">
+                    <div class="device-icon">⚡</div>
+                    <h3 data-zh="手机快速下载" data-en="Mobile Fast Download">手机快速下载</h3>
+                    <p data-zh="通过高速网盘快速获取游戏（推荐）" data-en="Get the game quickly via high-speed cloud storage (Recommended)">通过高速网盘快速获取游戏（推荐）</p>
+                    <a href="https://baidu.com" class="download-btn fast-download" data-zh="手机快速下载" data-en="Mobile Fast Download" target="_blank">手机快速下载</a>
+                </div>
+            </div>
+            
+            <div class="download-section">
+                <h2 class="section-title" data-zh="在线游玩（推荐）" data-en="Play Online (Recommended)">在线游玩（推荐）</h2>
+                <div class="download-card" style="grid-column: 1 / -1;">
+                    <div class="device-icon">🌐</div>
+                    <h3 data-zh="网页版游戏" data-en="Web Version">网页版游戏</h3>
+                    <p data-zh="无需下载，直接在浏览器中体验游戏（推荐）" data-en="No download required, play directly in your browser (Recommended)">无需下载，直接在浏览器中体验游戏（推荐）</p>
+                    <a href="play/" class="download-btn web-play-btn" data-zh="网页游玩" data-en="Play Online">网页游玩</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="theme-language-switcher">
+            <div class="theme-switcher">
+                <h3 data-zh="主题" data-en="Theme">主题</h3>
+                <button class="theme-btn active" data-theme="light" data-zh="浅色" data-en="Light">浅色</button>
+                <button class="theme-btn" data-theme="dark" data-zh="深色" data-en="Dark">深色</button>
+            </div>
+            
+            <div class="language-switcher">
+                <h3 data-zh="语言" data-en="Language">语言</h3>
+                <button class="lang-btn active" data-lang="zh" data-zh="中文简体" data-en="Chinese">中文简体</button>
+                <button class="lang-btn" data-lang="en" data-zh="English" data-en="English">English</button>
+            </div>
+        </div>
+        
+        <footer>
+            <p data-zh="© 2023 黑心游戏工作室 | 版权所有" data-en="© 2023 Black Heart Game Studio | All Rights Reserved">© 2023 黑心游戏工作室 | 版权所有</p>
+        </footer>
+    </div>
+
+    <script>
+        const langButtons = document.querySelectorAll('.lang-btn');
+        let currentLang = 'zh';
+        document.addEventListener('DOMContentLoaded', function() {
+            updateLanguage(currentLang);
+        });
+        
+        langButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                langButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                currentLang = this.getAttribute('data-lang');
+                updateLanguage(currentLang);
+                localStorage.setItem('preferred-lang', currentLang);
+            });
+        });
+        function updateLanguage(lang) {
+            const elements = document.querySelectorAll('[data-zh]');
+            elements.forEach(element => {
+                if (element.hasAttribute(`data-${lang}`)) {
+                    const text = element.getAttribute(`data-${lang}`);
+                    if (element.tagName === 'A') {
+                        element.textContent = text;
+                    } else {
+                        element.textContent = text;
+                    }
+                }
+            });
+        }
+        const themeButtons = document.querySelectorAll('.theme-btn');
+        let currentTheme = 'light';
+        
+        themeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                themeButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                currentTheme = this.getAttribute('data-theme');
+                document.body.className = `${currentTheme}-theme`;
+                localStorage.setItem('preferred-theme', currentTheme);
+            });
+        });
+        const savedTheme = localStorage.getItem('preferred-theme');
+        if (savedTheme) {
+            currentTheme = savedTheme;
+            document.body.className = `${currentTheme}-theme`;
+            themeButtons.forEach(btn => {
+                if (btn.getAttribute('data-theme') === currentTheme) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+        
+        const savedLang = localStorage.getItem('preferred-lang');
+        if (savedLang) {
+            currentLang = savedLang;
+            updateLanguage(currentLang);
+            langButtons.forEach(btn => {
+                if (btn.getAttribute('data-lang') === currentLang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+        document.querySelectorAll('.download-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>
